@@ -1,0 +1,2 @@
+#!/bin/sh
+#xinput --set-prop "DLL0945:00 06CB:CDE6 Touchpad" 339 0 # Disable While Typing 0  

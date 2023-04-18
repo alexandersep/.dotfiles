@@ -1,0 +1,4 @@
+#!/bin/sh
+# Gives dmenu a list of all unicode characters to copy
+
+cat ~/.scripts/emoji | dmenu  -i -l 20 | awk '{print $1}' | tr -d '\n' | xclip -selection clipboard
