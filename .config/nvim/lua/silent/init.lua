@@ -1,5 +1,6 @@
 require("silent.remap")
 require("silent.set")
+require("silent.packer")
 
 -- ColourScheme for Neovim
 vim.o.background = "dark" -- or "light" for light mode
