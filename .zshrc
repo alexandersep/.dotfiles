@@ -66,3 +66,4 @@ export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
 export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
 
 export PREFIX="$HOME/local"
+export PATH=$PATH:"$HOME/local/bin"
