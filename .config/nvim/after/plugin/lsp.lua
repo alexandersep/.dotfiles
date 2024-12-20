@@ -6,7 +6,6 @@ lsp.ensure_installed({
   'tsserver',
   'rust_analyzer',
   'lua_ls',
-  'hls',
   'pyright',
   'clangd',
 })
@@ -53,29 +52,6 @@ end)
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 require('lspconfig').dafny.setup{}
-
----
--- Setup haskell LSP
----
-local haskell_tools = require('haskell-tools')
-local hls_lsp = require('lsp-zero').build_options('hls', {})
-
-local hls_config = {
-  hls = {
-    capabilities = hls_lsp.capabilities,
-    on_attach = function(client, bufnr)
-      local opts = {buffer = bufnr}
-
-      -- haskell-language-server relies heavily on codeLenses,
-      -- so auto-refresh (see advanced configuration) is enabled by default
-      vim.keymap.set('n', '<leader>ca', vim.lsp.codelens.run, opts)
-      vim.keymap.set('n', '<leader>hs', haskell_tools.hoogle.hoogle_signature, opts)
-      vim.keymap.set('n', '<leader>ea', haskell_tools.lsp.buf_eval_all, opts)
-    end
-  }
-}
-
-lsp.setup()
 
 vim.diagnostic.config({
     virtual_text = true
