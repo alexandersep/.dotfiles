@@ -56,6 +56,7 @@ alias vim='nvim'
 alias cp="cp -i" # confirm before overwriting something
 alias ip='ip -c'
 alias lsleep='sudo systemctl suspend'
+alias pjava='processing-java --sketch=$PWD --run'
 
 # Shell configuration
 eval "$(zoxide init --cmd cd zsh)"
@@ -64,6 +65,8 @@ eval "$(zoxide init --cmd cd zsh)"
 
 export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
 export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$HOME/Documents/gits/graphics-CS7GV6/lib/cglm-0.9.4/build:$LD_LIBRARY_PATH
 
-export PREFIX="$HOME/local"
+export PREFIX="$HOME/.local"
 export PATH=$PATH:"$HOME/local/bin"
+export PATH=$PATH:"$HOME/Downloads/gits/processing-4.3"
