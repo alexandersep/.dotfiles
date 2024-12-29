@@ -17,8 +17,23 @@ return {
                     "%.log",
                     "%.tmp",
                     "build/",
+                    "bin/",
                     "zig-out/",
                     ".zig-cache/",
+                    -- Binaries
+                    "%.exe",
+                    "%.bin",
+                    "%.out",
+                    -- Latex specific
+                    "%.toc",
+                    "%.lot",
+                    "%.lof",
+                    "%.out",
+                    "%.aux",
+                    "%.pdf",
+                    -- Images
+                    "%.png",
+                    "%.jpg",
                 },
             },
         }
