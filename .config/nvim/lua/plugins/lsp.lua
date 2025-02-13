@@ -55,7 +55,6 @@ return {
                         end,
                     }
                 end,
-
                 zls = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.zls.setup({
@@ -86,6 +85,7 @@ return {
                         }
                     }
                 end,
+
             }
         })
 

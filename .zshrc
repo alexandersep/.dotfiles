@@ -63,10 +63,12 @@ eval "$(zoxide init --cmd cd zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
-export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
+export C_INCLUDE_PATH=$HOME/.local/include:$C_INCLUDE_PATH
+export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$HOME/Documents/gits/graphics-CS7GV6/lib/cglm-0.9.4/build:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 export PREFIX="$HOME/.local"
-export PATH=$PATH:"$HOME/local/bin"
 export PATH=$PATH:"$HOME/Downloads/gits/processing-4.3"
+export PATH=$PATH:"$HOME/.npm-global/bin"
