@@ -57,6 +57,7 @@ alias cp="cp -i" # confirm before overwriting something
 alias ip='ip -c'
 alias lsleep='sudo systemctl suspend'
 alias pjava='processing-java --sketch=$PWD --run'
+alias java17='/usr/lib/jvm/java-17-openjdk/bin/java'
 
 # Shell configuration
 eval "$(zoxide init --cmd cd zsh)"
@@ -72,3 +73,5 @@ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export PREFIX="$HOME/.local"
 export PATH=$PATH:"$HOME/Downloads/gits/processing-4.3"
 export PATH=$PATH:"$HOME/.npm-global/bin"
+export PATH=$PATH:"$HOME/Documents/gits/craftinginterpreters/"
+export PATH=$PATH:$PREFIX
