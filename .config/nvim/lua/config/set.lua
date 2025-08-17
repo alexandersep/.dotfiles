@@ -30,9 +30,29 @@ vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true })
 
 -- Paste from clipboard
 vim.api.nvim_set_keymap('n', '<C-v>', '"+p', { noremap = true })
+vim.api.nvim_set_keymap('i', '<C-v>', '"+p', { noremap = true })
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
 
 vim.keymap.set('n', '<leader>lp', vim.cmd.LspStop)
 vim.keymap.set('n', '<leader>lt', vim.cmd.LspStart)
+
+local function relative_path()
+    filepath = vim.fn.expand('%')
+    vim.fn.setreg("+", filepath)
+end
+
+local function absolute_path()
+    local filepath = vim.fn.expand('%:p')
+    vim.fn.setreg("+", filepath)
+end
+
+local function filename()
+    local filepath = vim.fn.expand('%:t')
+    vim.fn.setreg("+", filepath)
+end
+
+vim.keymap.set('n', '<leader>cp', relative_path)
+vim.keymap.set('n', '<leader>pc', absolute_path)
+vim.keymap.set('n', '<leader>fp', filename)
