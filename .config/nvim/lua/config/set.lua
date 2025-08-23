@@ -56,3 +56,61 @@ end
 vim.keymap.set('n', '<leader>cp', relative_path)
 vim.keymap.set('n', '<leader>pc', absolute_path)
 vim.keymap.set('n', '<leader>fp', filename)
+
+local build_term_buf = nil
+
+local function run_build_bat()
+	-- Save current window
+	local cur_win = vim.api.nvim_get_current_win()
+
+	-- Get current file directory
+	local cwd = vim.fn.expand('%:p:h')
+
+	-- Walk up the directory tree to find build.bat
+	local function find_build(dir)
+		local build_path = dir .. '/build.bat'
+		if vim.fn.filereadable(build_path) == 1 then
+			return build_path
+		end
+		local parent = vim.fn.fnamemodify(dir, ':h')
+		if parent == dir then
+			return nil -- reached root
+		end
+		return find_build(parent)
+	end
+
+	local build_file = find_build(cwd)
+	if not build_file then
+		print("No build.bat found in parent directories.")
+		return
+	end
+
+	-- Kill old terminal buffer if still around
+	if build_term_buf and vim.api.nvim_buf_is_valid(build_term_buf) then
+		vim.api.nvim_buf_delete(build_term_buf, { force = true })
+		build_term_buf = nil
+	end
+
+	-- Open a fresh vertical terminal running build.bat
+	vim.cmd('vert rightbelow split | terminal "' .. build_file .. '"')
+	build_term_buf = vim.api.nvim_get_current_buf()
+
+	-- Give it a nice name (shows in buffer list & statusline)
+	vim.api.nvim_buf_set_name(build_term_buf, "build://terminal")
+
+	-- Map <Esc> in this buffer to close it
+	vim.keymap.set('n', '<Esc>', '<C-\\><C-n>:bd!<CR>', { buffer = build_term_buf, nowait = true })
+
+	-- Restore cursor to original buffer
+	if vim.api.nvim_win_is_valid(cur_win) then
+		vim.api.nvim_set_current_win(cur_win)
+	end
+end
+
+-- Create a command for convenience
+vim.keymap.set('n', '<leader>b', run_build_bat, { noremap = true, silent = true, desc = "Run build.bat" })
+
+-- todo-comments.lua
+vim.keymap.set('n', '<leader>to', function()
+      vim.cmd.TodoTelescope()
+end)
