@@ -59,7 +59,7 @@ return {
             name = "mlir-lsp-server",
             cmd = {"mlir-lsp-server"},
             filetypes = {"mlir"},
-        }
+        })
         vim.lsp.enable('mlir-lsp-server')
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
