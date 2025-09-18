@@ -9,6 +9,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
+vim.opt.foldenable = false
 vim.opt.smartindent = true
 
 vim.opt.wrap = true
@@ -37,25 +38,6 @@ vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
 
 vim.keymap.set('n', '<leader>lp', vim.cmd.LspStop)
 vim.keymap.set('n', '<leader>lt', vim.cmd.LspStart)
-
-local function relative_path()
-    filepath = vim.fn.expand('%')
-    vim.fn.setreg("+", filepath)
-end
-
-local function absolute_path()
-    local filepath = vim.fn.expand('%:p')
-    vim.fn.setreg("+", filepath)
-end
-
-local function filename()
-    local filepath = vim.fn.expand('%:t')
-    vim.fn.setreg("+", filepath)
-end
-
-vim.keymap.set('n', '<leader>cp', relative_path)
-vim.keymap.set('n', '<leader>pc', absolute_path)
-vim.keymap.set('n', '<leader>fp', filename)
 
 local build_term_buf = nil
 
@@ -114,3 +96,22 @@ vim.keymap.set('n', '<leader>b', run_build_bat, { noremap = true, silent = true,
 vim.keymap.set('n', '<leader>to', function()
       vim.cmd.TodoTelescope()
 end)
+
+local function relative_path()
+    filepath = vim.fn.expand('%')
+    vim.fn.setreg("+", filepath)
+end
+
+local function absolute_path()
+    local filepath = vim.fn.expand('%:p')
+    vim.fn.setreg("+", filepath)
+end
+
+local function filename()
+    local filepath = vim.fn.expand('%:t')
+    vim.fn.setreg("+", filepath)
+end
+
+vim.keymap.set('n', '<leader>cp', absolute_path, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>cf', filename, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>cp', relative_path, { noremap = true, silent = true })
