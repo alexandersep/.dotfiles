@@ -6,10 +6,10 @@ return {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
     colors = {
-        error = "#FFD6BA",
-        warning = "#DEE791",
-        info = "#BBDCE5",
-        hint = "#A3DC9A",
+        error = "#BBDCE5",
+        hint = "#e1fe86",
+        info = "#f6bb83",
+        warning = "#A3DC9A",
         default = "#FFFFFF",
     },
     keywords = {
@@ -31,6 +31,7 @@ return {
         before = "",
         after = "",
         pattern = [[.*<(KEYWORDS)]],
+        gui = "underline",
     },
     search = {
         pattern = [[\b(KEYWORDS)]],
