@@ -115,3 +115,12 @@ end
 vim.keymap.set('n', '<leader>cp', absolute_path, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>cf', filename, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>cp', relative_path, { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>tb', function()
+  require('telescope.builtin').buffers({
+    sort_mru = true,
+    ignore_current_buffer = true
+  })
+end, { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader><Esc>', '<C-w>w', { noremap = true, silent = true, desc = "Switch window" })
