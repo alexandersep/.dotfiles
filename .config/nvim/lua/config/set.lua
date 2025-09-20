@@ -124,3 +124,34 @@ vim.keymap.set('n', '<leader>tb', function()
 end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader><Esc>', '<C-w>w', { noremap = true, silent = true, desc = "Switch window" })
+
+-- Never insert comments after 'o'
+vim.opt.formatoptions:remove { "o" }
+
+-- storage for last command
+local last_cmd = nil
+-- safe runner with wrap-around
+local function run_cmd(cmd)
+  last_cmd = cmd
+  local ok, _ = pcall(vim.cmd, cmd)
+  if not ok then
+    if cmd == "cnext" then
+      vim.cmd("cfirst") -- wrap to first error
+    elseif cmd == "cprev" then
+      vim.cmd("clast")  -- wrap to last error
+    end
+  end
+end
+
+-- mappings for next/prev error that also update last_cmd
+vim.keymap.set('n', '<leader>ne', function() run_cmd("cnext") end)
+vim.keymap.set('n', '<leader>pe', function() run_cmd("cprev") end)
+
+-- <leader><leader> repeats last stored command
+vim.keymap.set('n', '<leader><leader>', function()
+  if last_cmd then
+    run_cmd(last_cmd) -- re-run with wrapping
+  else
+    print("No command recorded yet")
+  end
+end)
