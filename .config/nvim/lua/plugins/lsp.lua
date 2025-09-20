@@ -29,13 +29,11 @@ return {
         require("mason").setup()
         require("mason-lspconfig").setup({
             ensure_installed = {
-                "lua_ls",
-                "ols",
                 "clangd",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup {
+                    vim.lsp.config(server_name, {
                         capabilities = capabilities,
                         on_attach = function(client, bufnr)
                             local opts = { buffer = bufnr, remap = false }
@@ -52,41 +50,17 @@ return {
                             vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, opts)
                             vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
                         end,
-                    }
+                    }) 
+                    vim.lsp.enable(server_name)
                 end,
-                zls = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.zls.setup({
-                        root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
-                        settings = {
-                            zls = {
-                                enable_inlay_hints = true,
-                                enable_snippets = true,
-                                warn_style = true,
-                            },
-                        },
-                    })
-                    vim.g.zig_fmt_parse_errors = 0
-                    vim.g.zig_fmt_autosave = 0
-
-                end,
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = { version = "Lua 5.1" },
-                                diagnostics = {
-                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
-                        }
-                    }
-                end,
-
             }
         })
+        vim.lsp.config("mlir-lsp-server", {
+            name = "mlir-lsp-server",
+            cmd = {"mlir-lsp-server"},
+            filetypes = {"mlir"},
+        })
+        vim.lsp.enable('mlir-lsp-server')
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 

@@ -17,9 +17,12 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit ice lucid wait'0'
+zinit light joshskidmore/zsh-fzf-history-search
 
 # Load completions
 autoload -Uz compinit && compinit
+autoload -Uz +X bashcompinit && bashcompinit
 
 zinit cdreplay -q
 
@@ -43,6 +46,13 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -59,6 +69,20 @@ alias lsleep='sudo systemctl suspend'
 alias pjava='processing-java --sketch=$PWD --run'
 alias java17='/usr/lib/jvm/java-17-openjdk/bin/java'
 
+export TERM=xterm-256color
+export EDITOR='nvim'
+export VISUAL='nvim'
+export ARTIFACTORY_USER="asepelen"
+
+export PREFIX="$HOME/.local"
+export CMAKE_INSTALL_PREFIX="$HOME/.local"
+export PATH=$PATH:"$HOME/Downloads/gits/processing-4.3"
+export PATH=$PATH:"$HOME/.npm-global/bin"
+export PATH=$PATH:"$HOME/Documents/gits/craftinginterpreters/"
+export PATH=$PATH:$PREFIX
+export PATH=$PATH:"$HOME/.local/bin"
+export PATH=$PATH:"/usr/bin/"
+
 # Shell configuration
 eval "$(zoxide init --cmd cd zsh)"
 
@@ -69,9 +93,3 @@ export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=$HOME/Documents/gits/graphics-CS7GV6/lib/cglm-0.9.4/build:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-
-export PREFIX="$HOME/.local"
-export PATH=$PATH:"$HOME/Downloads/gits/processing-4.3"
-export PATH=$PATH:"$HOME/.npm-global/bin"
-export PATH=$PATH:"$HOME/Documents/gits/craftinginterpreters/"
-export PATH=$PATH:$PREFIX
