@@ -83,6 +83,27 @@ local function run_build_bat()
 	-- Map <Esc> in this buffer to close it
 	vim.keymap.set('n', '<Esc>', '<C-\\><C-n>:bd!<CR>', { buffer = build_term_buf, nowait = true })
 
+	    -- When the terminal job exits, populate quickfix from this buffer
+    vim.api.nvim_create_autocmd("TermClose", {
+        buffer = build_term_buf,
+        once = true,
+        callback = function()
+            -- Get terminal buffer lines
+            local output = vim.api.nvim_buf_get_lines(build_term_buf, 0, -1, false)
+            local clean_output = {}
+            for _, line in ipairs(output) do
+                if line:match("%S") and line:match("error") then  -- only keep non-empty lines
+                    table.insert(clean_output, line)
+                end
+            end
+            -- Clear any previous quickfix entries first
+            vim.cmd("cexpr []")
+            -- Populate quickfix only with matched errors/warnings
+            vim.fn.setqflist({}, "r", { lines = clean_output })
+            print("✅ Build finished. Errors/warnings loaded into quickfix.")
+        end,
+    })
+
 	-- Restore cursor to original buffer
 	if vim.api.nvim_win_is_valid(cur_win) then
 		vim.api.nvim_set_current_win(cur_win)
@@ -146,6 +167,7 @@ end
 -- mappings for next/prev error that also update last_cmd
 vim.keymap.set('n', '<leader>ne', function() run_cmd("cnext") end)
 vim.keymap.set('n', '<leader>pe', function() run_cmd("cprev") end)
+vim.keymap.set('n', '<leader>vs', function() run_cmd("vsplit") end)
 
 -- <leader><leader> repeats last stored command
 vim.keymap.set('n', '<leader><leader>', function()

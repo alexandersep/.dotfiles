@@ -28,9 +28,6 @@ return {
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
-            ensure_installed = {
-                "clangd",
-            },
             handlers = {
                 function(server_name) -- default handler (optional)
                     vim.lsp.config(server_name, {

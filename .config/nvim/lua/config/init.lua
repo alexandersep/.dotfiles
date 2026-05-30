@@ -16,3 +16,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     vim.opt_local.formatoptions:remove { "o" }
   end,
 })
+
+vim.opt.errorformat = {
+  "%f(%l): error %m",     -- only capture error lines
+}

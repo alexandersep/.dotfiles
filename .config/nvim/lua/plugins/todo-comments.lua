@@ -25,6 +25,7 @@ return {
         PERF = { icon = "P", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
         NOTE = { icon = "N", color = "hint", alt = { "INFO" } },
         TEST = { icon = "Te", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+        IMPORTANT = { icon = "I", color = "info" },
     },
     highlight = {
         keyword = "fg",
